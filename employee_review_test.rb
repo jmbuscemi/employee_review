@@ -27,12 +27,12 @@ class EmployeeReviewTest < Minitest::Test
     assert_equal 50000, Employee.new.salary
   end
 
-  # def test_create_employee_with_name
-  #   assert_equal "Emily", Employee.new(name: "Emily").name
-  # end
-  #
-  # def test_employee_has_email
-  #   assert_equal ""
-  # end
-
+  def test_create_employee_with_name_phone_email_salary
+    employee = Employee.new(name: "Emily", email: "emily@gmail.com",
+                            phone_number: "919-123-4567", salary: 75000)
+    assert_equal "Emily", employee.name
+    assert_equal "emily@gmail.com", employee.email
+    assert_equal "919-123-4567", employee.phone_number
+    assert_equal 75000, employee.salary
+  end
 end
