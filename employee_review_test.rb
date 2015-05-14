@@ -35,4 +35,36 @@ class EmployeeReviewTest < Minitest::Test
     assert_equal "919-123-4567", employee.phone_number
     assert_equal 75000, employee.salary
   end
+
+  def test_add_employee_to_department
+    department = Department.new("Management")
+    employee = Employee.new(name: "John")
+
+    department.assign(employee)
+
+    assert_equal [employee], department.employees
+    assert_equal ["John"], department.employee_names
+  end
+
+  def test_add_multiple_employees_to_diff_departments
+    mgmt_department = Department.new("Management")
+    mgmt_employee1 = Employee.new(name: "John")
+    mgmt_employee2 = Employee.new(name: "Bill")
+
+    mgmt_department.assign(mgmt_employee1)
+    mgmt_department.assign(mgmt_employee2)
+
+    hr_department = Department.new("Human Resources")
+    hr_employee1 = Employee.new(name: "Sally")
+    hr_employee2 = Employee.new(name: "Jane", salary: 10000)
+
+    hr_department.assign(hr_employee1)
+    hr_department.assign(hr_employee2)
+
+    assert_equal [mgmt_employee1, mgmt_employee2], mgmt_department.employees
+    assert_equal ["John", "Bill"], mgmt_department.employee_names
+
+    assert_equal [hr_employee1, hr_employee2], hr_department.employees
+    assert_equal ["Sally", "Jane"], hr_department.employee_names
+  end
 end
