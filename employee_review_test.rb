@@ -74,6 +74,7 @@ class EmployeeReviewTest < Minitest::Test
                             phone_number: "919-123-4567", salary: 75000))
     department.assign(Employee.new(name: "John", email: "john@gmail.com",
                             phone_number: "919-765-4321", salary: 50000))
+
     assert_equal 75000, department.employee_salaries[0]
     assert_equal 50000, department.employee_salaries[1]
     refute department.employee_salaries[2]
@@ -81,6 +82,7 @@ class EmployeeReviewTest < Minitest::Test
 
   def test_get_employee_department_name
     department = Department.new("Creative")
+
     assert_equal "Creative", department.name
     refute department.name == "Human Resources"
   end
@@ -93,5 +95,15 @@ class EmployeeReviewTest < Minitest::Test
     assert_equal (165000 + 105000), department.total_salary
   end
 
-  
+  def test_can_add_review_text_to_an_employee
+    jose = Employee.new(name: "Jose", review: "Jose is a huge asset to SciMed and is a pleasure to work with.  He quickly knocks out tasks assigned to him, implements code that rarely needs to be revisited, and is always willing to help others despite his heavy workload.  When Jose leaves on vacation, everyone wishes he didn't have to go.
+    Last year, the only concerns with Jose performance were around ownership.  In the past twelve months, he has successfully taken full ownership of both Acme and Bricks, Inc.  Aside from some false starts with estimates on Acme, clients are happy with his work and responsiveness, which is everything that his managers could ask for.")
+    mike = Employee.new(name: "Mike")
+
+    assert jose.review == "Jose is a huge asset to SciMed and is a pleasure to work with.  He quickly knocks out tasks assigned to him, implements code that rarely needs to be revisited, and is always willing to help others despite his heavy workload.  When Jose leaves on vacation, everyone wishes he didn't have to go.
+    Last year, the only concerns with Jose performance were around ownership.  In the past twelve months, he has successfully taken full ownership of both Acme and Bricks, Inc.  Aside from some false starts with estimates on Acme, clients are happy with his work and responsiveness, which is everything that his managers could ask for."
+    refute mike.review == "Mike used to drive a Sigma...can you believe it?!"
+  end
+
+
 end
