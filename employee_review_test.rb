@@ -129,6 +129,23 @@ class EmployeeReviewTest < Minitest::Test
     employee.give_raise(0.20)
 
     assert_equal 60000, employee.salary
+  end
+
+  def test_give_raise_to_department
+    department = Department.new("Creative")
+    emily = Employee.new(name: "Emily", salary: 10000, evaluation: "Good")
+    john = Employee.new(name: "John", salary: 10000, evaluation: "Good")
+    ben = Employee.new(name: "Ben", salary: 10000, evaluation: "Bad")
+
+    department.assign(emily)
+    department.assign(john)
+    department.assign(ben)
+
+    department.give_raise(10000)
+
+    assert_in_delta 15000, emily.salary, 0.01
+    assert_in_delta 15000, john.salary, 0.01
+    assert_in_delta 10000, ben.salary, 0.01
 
   end
 

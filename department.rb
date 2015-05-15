@@ -19,8 +19,17 @@ class Department
   end
 
   def total_salary
-    employee_salaries.reduce(:+)
     #Research the .inject method to use here.
+    employee_salaries.reduce(:+)
+  end
+
+  def give_raise(amount)
+    good_employees = @employees.select {|e| e.performance_eval}
+    number_getting_raises = good_employees.count.to_f
+    good_employees.each do |e|
+      e.give_raise(amount / number_getting_raises)
+    end
+
   end
 
 
