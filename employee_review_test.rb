@@ -67,4 +67,31 @@ class EmployeeReviewTest < Minitest::Test
     assert_equal [hr_employee1, hr_employee2], hr_department.employees
     assert_equal ["Sally", "Jane"], hr_department.employee_names
   end
+
+  def test_get_employee_salary
+    department = Department.new("Creative")
+    department.assign(Employee.new(name: "Emily", email: "emily@gmail.com",
+                            phone_number: "919-123-4567", salary: 75000))
+    department.assign(Employee.new(name: "John", email: "john@gmail.com",
+                            phone_number: "919-765-4321", salary: 50000))
+    assert_equal 75000, department.employee_salaries[0]
+    assert_equal 50000, department.employee_salaries[1]
+    refute department.employee_salaries[2]
+  end
+
+  def test_get_employee_department_name
+    department = Department.new("Creative")
+    assert_equal "Creative", department.name
+    refute department.name == "Human Resources"
+  end
+
+  def test_get_department_total_salary
+    department = Department.new("Management")
+    department.assign(Employee.new(name: "Kerry", salary: 165000))
+    department.assign(Employee.new(name: "GP", salary: 105000))
+
+    assert_equal (165000 + 105000), department.total_salary
+  end
+
+  
 end
