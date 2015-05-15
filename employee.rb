@@ -20,4 +20,14 @@ class Employee
     true if @evaluation == "Good"
   end
 
+  def give_raise(amount)
+    if amount < 1.01
+      @salary += (amount * @salary)
+    else
+      @salary += amount
+    end
+  end
+
+
+
 end

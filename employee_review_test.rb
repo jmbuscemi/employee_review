@@ -119,5 +119,19 @@ class EmployeeReviewTest < Minitest::Test
     refute no_eval.performance_eval
   end
 
+  def test_give_raise_to_employee
+    employee = Employee.new()
+    employee.give_raise(5000)
+
+    assert_equal 55000, employee.salary
+
+    employee = Employee.new()
+    employee.give_raise(0.20)
+
+    assert_equal 60000, employee.salary
+
+  end
+
+
 
 end
