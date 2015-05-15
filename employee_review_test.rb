@@ -96,13 +96,27 @@ class EmployeeReviewTest < Minitest::Test
   end
 
   def test_can_add_review_text_to_an_employee
-    jose = Employee.new(name: "Jose", review: "Jose is a huge asset to SciMed and is a pleasure to work with.  He quickly knocks out tasks assigned to him, implements code that rarely needs to be revisited, and is always willing to help others despite his heavy workload.  When Jose leaves on vacation, everyone wishes he didn't have to go.
-    Last year, the only concerns with Jose performance were around ownership.  In the past twelve months, he has successfully taken full ownership of both Acme and Bricks, Inc.  Aside from some false starts with estimates on Acme, clients are happy with his work and responsiveness, which is everything that his managers could ask for.")
+    jose = Employee.new(name: "Jose")
     mike = Employee.new(name: "Mike")
 
-    assert jose.review == "Jose is a huge asset to SciMed and is a pleasure to work with.  He quickly knocks out tasks assigned to him, implements code that rarely needs to be revisited, and is always willing to help others despite his heavy workload.  When Jose leaves on vacation, everyone wishes he didn't have to go.
+    jose.add_review("Jose is a huge asset to SciMed and is a pleasure to work with.  He quickly knocks out tasks assigned to him, implements code that rarely needs to be revisited, and is always willing to help others despite his heavy workload.  When Jose leaves on vacation, everyone wishes he didn't have to go.
+    Last year, the only concerns with Jose performance were around ownership.  In the past twelve months, he has successfully taken full ownership of both Acme and Bricks, Inc.  Aside from some false starts with estimates on Acme, clients are happy with his work and responsiveness, which is everything that his managers could ask for.")
+    jose.add_review("Jose is a great boss")
+
+    assert jose.review[0] == "Jose is a huge asset to SciMed and is a pleasure to work with.  He quickly knocks out tasks assigned to him, implements code that rarely needs to be revisited, and is always willing to help others despite his heavy workload.  When Jose leaves on vacation, everyone wishes he didn't have to go.
     Last year, the only concerns with Jose performance were around ownership.  In the past twelve months, he has successfully taken full ownership of both Acme and Bricks, Inc.  Aside from some false starts with estimates on Acme, clients are happy with his work and responsiveness, which is everything that his managers could ask for."
-    refute mike.review == "Mike used to drive a Sigma...can you believe it?!"
+    refute mike.review[0] == "Mike used to drive a Sigma...can you believe it?!"
+    assert jose.review.count == 2
+  end
+
+  def test_employee_has_performance_eval
+    good_employee = Employee.new(evaluation: "Good")
+    bad_employee = Employee.new(evaluation: "Bad")
+    no_eval = Employee.new()
+
+    assert good_employee.performance_eval
+    refute bad_employee.performance_eval
+    refute no_eval.performance_eval
   end
 
 
