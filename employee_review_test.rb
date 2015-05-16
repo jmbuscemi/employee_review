@@ -131,7 +131,7 @@ class EmployeeReviewTest < Minitest::Test
     assert_equal 60000, employee.salary
   end
 
-  def test_give_raise_to_department
+  def test_give_raise_to_good_employees_in_department
     department = Department.new("Creative")
     emily = Employee.new(name: "Emily", salary: 10000, evaluation: "Good")
     john = Employee.new(name: "John", salary: 10000, evaluation: "Good")
@@ -141,11 +141,29 @@ class EmployeeReviewTest < Minitest::Test
     department.assign(john)
     department.assign(ben)
 
-    department.give_raise(10000)
+    department.give_raises(10000) {|employee| employee.performance_eval}
 
     assert_in_delta 15000, emily.salary, 0.01
     assert_in_delta 15000, john.salary, 0.01
     assert_in_delta 10000, ben.salary, 0.01
+  end
+
+  def test_give_raises_block
+    department = Department.new("Engineering")
+    john = Employee.new(name: "John", salary: 85000)
+    jose = Employee.new(name: "Jose", salary: 125000)
+    mike = Employee.new(name: "Mike", salary: 88000)
+
+    department.assign(john)
+    department.assign(jose)
+    department.assign(mike)
+
+    department.give_raises(10000) {|employee| (employee.salary < 100000)}
+
+    assert_in_delta 90000, john.salary, 0.01
+    assert_in_delta 93000, mike.salary, 0.01
+    assert_in_delta 125000, jose.salary, 0.01
+
 
   end
 
