@@ -131,7 +131,7 @@ class EmployeeReviewTest < Minitest::Test
     assert_equal 60000, employee.salary
   end
 
-  def test_give_raise_to_good_employees_in_department
+  def test_give_raises_to_good_employees_in_department
     department = Department.new("Creative")
     emily = Employee.new(name: "Emily", salary: 10000, evaluation: "Good")
     john = Employee.new(name: "John", salary: 10000, evaluation: "Good")
@@ -148,7 +148,7 @@ class EmployeeReviewTest < Minitest::Test
     assert_in_delta 10000, ben.salary, 0.01
   end
 
-  def test_give_raises_block
+  def test_give_raises_based_on_salary_requirement
     department = Department.new("Engineering")
     john = Employee.new(name: "John", salary: 85000)
     jose = Employee.new(name: "Jose", salary: 125000)
