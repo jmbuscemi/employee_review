@@ -163,8 +163,6 @@ class EmployeeReviewTest < Minitest::Test
     assert_in_delta 90000, john.salary, 0.01
     assert_in_delta 93000, mike.salary, 0.01
     assert_in_delta 125000, jose.salary, 0.01
-
-
   end
 
 
